@@ -23,4 +23,9 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .map(EmployeeDto::new)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public EmployeeDto getEmployeeById(Integer id) {
+        return new EmployeeDto(employeeRepository.findById(id).orElse(null));
+    }
 }
