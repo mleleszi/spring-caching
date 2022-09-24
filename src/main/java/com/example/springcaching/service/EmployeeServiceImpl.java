@@ -21,7 +21,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .findAll(PageRequest.of(page, size))
                 .stream()
                 .map(EmployeeDto::new)
-                .limit(10000)
                 .collect(Collectors.toList());
     }
 }
