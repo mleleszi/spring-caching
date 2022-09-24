@@ -18,7 +18,7 @@ public class EmployeeController {
 
     EmployeeService employeeService;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<EmployeeDto>> getEmployees(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10000") int size) {
@@ -30,5 +30,5 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.getEmployeeById(id));
     }
 
-    
+
 }
