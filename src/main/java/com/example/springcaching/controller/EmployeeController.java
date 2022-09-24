@@ -29,6 +29,4 @@ public class EmployeeController {
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Integer id) {
         return ResponseEntity.ok(employeeService.getEmployeeById(id));
     }
-
-
 }

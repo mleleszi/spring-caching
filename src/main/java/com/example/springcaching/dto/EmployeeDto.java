@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,7 +20,8 @@ public class EmployeeDto {
     private String lastName;
     private String gender;
     private LocalDate hireDate;
-    private Set<DeptEmpDto> departments;
+    private List<DeptEmpDto> departments;
+    private List<SalaryDto> salaries;
 
     public EmployeeDto(Employee employee) {
         this.id = employee.getId();
@@ -32,6 +34,11 @@ public class EmployeeDto {
                 .getDeptEmps()
                 .stream()
                 .map(DeptEmpDto::new)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
+        this.salaries = employee
+                .getSalaries()
+                .stream()
+                .map(SalaryDto::new)
+                .collect(Collectors.toList());
     }
 }
