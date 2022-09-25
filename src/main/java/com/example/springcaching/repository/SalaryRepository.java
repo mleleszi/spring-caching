@@ -9,8 +9,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface SalaryRepository extends JpaRepository<Salary, SalaryId> {
 
-    @Query( value = "select salary from salaries where emp_no = :emp_id" +
-                   "and from_date = (select max(from_date) from salaries where emp_no = :emp_id)",
+    @Query( value = "select * from salaries where emp_no = :emp_id" +
+                   " and from_date = (select max(from_date) from salaries where emp_no = :emp_id)",
             nativeQuery = true)
-    Integer findCurrentSalaryByEmployeeId(@Param(value = "emp_id") Integer employeeId);
+    Salary findCurrentSalaryByEmployeeId(@Param(value = "emp_id") Integer employeeId);
 }

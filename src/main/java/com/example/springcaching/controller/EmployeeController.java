@@ -36,6 +36,16 @@ public class EmployeeController {
 
     @GetMapping("/{id}/currentsalary")
     public ResponseEntity<Integer> getCurrentSalaryById(@PathVariable Integer id) {
-        return ResponseEntity.ok(salaryService.getCurrentSalaryByEmployeeId(id));
+        return ResponseEntity.ok(salaryService.getCurrentSalaryByEmployeeId(id).getSalary());
+    }
+
+    @PatchMapping("/{id}/modifysalary")
+    public ResponseEntity<String> modifySalary(
+            @PathVariable Integer id,
+            @RequestParam(required = false) Integer increaseAmount,
+            @RequestParam(required = false) Integer decreaseAmount
+            ){
+        return ResponseEntity.ok(salaryService.modifySalary(id, increaseAmount, decreaseAmount));
     }
 }
+
