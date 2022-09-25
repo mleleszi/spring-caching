@@ -10,4 +10,5 @@ public interface EmployeeService {
     List<EmployeeDto> getEmployees(int page, int size);
     EmployeeDto getEmployeeById(Integer id);
     boolean existsById(Integer id);
+    List<Integer> getAllIds();
 }

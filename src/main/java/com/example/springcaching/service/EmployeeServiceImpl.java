@@ -34,4 +34,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public boolean existsById(Integer id) {
         return employeeRepository.existsById(id);
     }
+
+    @Override
+    public List<Integer> getAllIds() {
+        return employeeRepository.findAllIds();
+    }
 }

@@ -9,12 +9,15 @@ import com.example.springcaching.repository.SalaryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class SalaryServiceImpl implements SalaryService {
 
     SalaryRepository salaryRepository;
     EmployeeRepository employeeRepository;
+    EmployeeService employeeService;
 
     @Override
     public SalaryDto getCurrentSalaryByEmployeeId(Integer id) {
@@ -44,4 +47,26 @@ public class SalaryServiceImpl implements SalaryService {
 
         return null;
     }
+
+    @Override
+    public Long getSumOfSalaries() {
+         return employeeService
+                    .getAllIds()
+                    .stream()
+                    .map(id -> Long.valueOf(getCurrentSalaryByEmployeeId(id).getSalary()))
+                    .reduce(0L, Long::sum);
+    }
+
+    @Override
+    public Double getAverageSalary() {
+        return employeeService
+                .getAllIds()
+                .stream()
+                .map(id -> getCurrentSalaryByEmployeeId(id).getSalary())
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(Double.NaN);
+    }
+
+
 }

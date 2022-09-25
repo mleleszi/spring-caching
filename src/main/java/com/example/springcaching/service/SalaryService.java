@@ -7,4 +7,6 @@ public interface SalaryService {
     String modifySalary(Integer id,
                         Integer increaseAmount,
                         Integer decreaseAmount);
+    Long getSumOfSalaries();
+    Double getAverageSalary();
 }
