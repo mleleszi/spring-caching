@@ -21,7 +21,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public List<DepartmentDto> getAllDepartments() {
         log.info("DepartmentService::getAllDepartments");
         return departmentRepository
-                .findAll()
+                .findAllBy()
                 .stream()
                 .map(DepartmentDto::new)
                 .collect(Collectors.toList());
