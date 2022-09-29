@@ -3,3 +3,13 @@ spring:
     url: jdbc:mysql://localhost:3306/employees
     username: root
     password: qwertzui
+  jpa:
+    properties:
+      hibernate:
+        cache:
+          use_second_level_cache: true
+          region:
+            factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+    show-sql: true
+
+

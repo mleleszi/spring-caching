@@ -1,12 +1,14 @@
 package com.example.springcaching.entity;
 
 import com.example.springcaching.entity.ids.DeptEmpId;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "dept_emp")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class DeptEmp {
     @EmbeddedId
     private DeptEmpId id;

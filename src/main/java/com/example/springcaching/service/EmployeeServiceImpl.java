@@ -4,6 +4,7 @@ import com.example.springcaching.dto.EmployeeDto;
 import com.example.springcaching.repository.EmployeeRepository;
 import jdk.jfr.Percentage;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +13,14 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class EmployeeServiceImpl implements EmployeeService {
 
     EmployeeRepository employeeRepository;
 
     @Override
     public List<EmployeeDto> getEmployees(int page, int size) {
+        log.info("EmployeeService::getEmployees");
         return employeeRepository
                 .findAll(PageRequest.of(page, size))
                 .stream()
@@ -27,6 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto getEmployeeById(Integer id) {
+        log.info("EmployeeService::getEmployeeById");
         return new EmployeeDto(employeeRepository.findById(id).orElse(null));
     }
 
