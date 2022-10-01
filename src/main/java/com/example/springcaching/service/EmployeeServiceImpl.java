@@ -5,6 +5,7 @@ import com.example.springcaching.repository.EmployeeRepository;
 import jdk.jfr.Percentage;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Cacheable(value="employees", key="#id")
     public EmployeeDto getEmployeeById(Integer id) {
         log.info("EmployeeService::getEmployeeById");
         return new EmployeeDto(employeeRepository.findById(id).orElse(null));
