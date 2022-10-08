@@ -20,6 +20,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     EmployeeRepository employeeRepository;
 
     @Override
+    @Cacheable("employees")
     public List<EmployeeDto> getEmployees(int page, int size) {
         log.info("EmployeeService::getEmployees");
         return employeeRepository
