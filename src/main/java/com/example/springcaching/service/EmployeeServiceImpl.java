@@ -22,7 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeDto> getEmployees(int page, int size) {
         log.info("EmployeeService::getEmployees");
         return employeeRepository
-                .findAll(PageRequest.of(page, size))
+                .findAllBy(PageRequest.of(page, size))
                 .stream()
                 .map(EmployeeDto::new)
                 .collect(Collectors.toList());
