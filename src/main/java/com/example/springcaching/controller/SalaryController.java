@@ -1,12 +1,12 @@
 package com.example.springcaching.controller;
 
+import com.example.springcaching.dto.SalaryDto;
 import com.example.springcaching.service.SalaryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -28,5 +28,13 @@ public class SalaryController {
     @GetMapping("/bonus/{rating}")
     public ResponseEntity<Double> calculateBonus(@PathVariable Double rating) {
         return ResponseEntity.ok(salaryService.calculateBonus(rating));
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<SalaryDto>> getAllSalaries(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10000") int size
+    ) {
+        return ResponseEntity.ok(salaryService.getAllSalaries(page, size));
     }
 }

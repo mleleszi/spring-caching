@@ -1,7 +1,6 @@
 package com.example.springcaching.service;
 
 import com.example.springcaching.dto.SalaryDto;
-import com.example.springcaching.entity.Employee;
 import com.example.springcaching.entity.Salary;
 import com.example.springcaching.exception.NoSuchEntityException;
 import com.example.springcaching.repository.EmployeeRepository;
@@ -9,11 +8,12 @@ import com.example.springcaching.repository.SalaryRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -86,6 +86,15 @@ public class SalaryServiceImpl implements SalaryService {
             e.printStackTrace();
         }
         return rating * 10;
+    }
+
+    @Override
+    public List<SalaryDto> getAllSalaries(int page, int size) {
+        return salaryRepository
+                .findAllBy(PageRequest.of(page, size))
+                .stream()
+                .map(SalaryDto::new)
+                .collect(Collectors.toList());
     }
 
 
