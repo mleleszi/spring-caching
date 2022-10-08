@@ -63,6 +63,7 @@ public class SalaryServiceImpl implements SalaryService {
     }
 
     @Override
+    @Cacheable("avgSalary")
     public Double getAverageSalary() {
         return employeeService
                 .getAllIds()
