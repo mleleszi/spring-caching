@@ -7,6 +7,9 @@ import com.example.springcaching.exception.NoSuchEntityException;
 import com.example.springcaching.repository.EmployeeRepository;
 import com.example.springcaching.repository.SalaryRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +28,7 @@ public class SalaryServiceImpl implements SalaryService {
     }
 
     @Override
+    @CacheEvict(value = "employees", key = "#id")
     public String modifySalary(Integer id,
                                Integer increaseAmount,
                                Integer decreaseAmount) {
@@ -49,6 +53,7 @@ public class SalaryServiceImpl implements SalaryService {
     }
 
     @Override
+    @Cacheable
     public Long getSumOfSalaries() {
          return employeeService
                     .getAllIds()

@@ -3,6 +3,7 @@ package com.example.springcaching.entity;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Table(name = "employees")
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Employee {
+
     @Id
     @Column(name = "emp_no", nullable = false)
     private Integer id;

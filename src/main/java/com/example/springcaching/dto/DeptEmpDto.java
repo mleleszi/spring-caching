@@ -6,12 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeptEmpDto {
+public class DeptEmpDto implements Serializable {
     private String deptId;
     private String deptName;
     private LocalDate fromDate;
