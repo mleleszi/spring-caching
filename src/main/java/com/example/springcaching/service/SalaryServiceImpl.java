@@ -7,6 +7,7 @@ import com.example.springcaching.exception.NoSuchEntityException;
 import com.example.springcaching.repository.EmployeeRepository;
 import com.example.springcaching.repository.SalaryRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class SalaryServiceImpl implements SalaryService {
 
     SalaryRepository salaryRepository;
@@ -72,6 +74,18 @@ public class SalaryServiceImpl implements SalaryService {
                 .mapToInt(Integer::intValue)
                 .average()
                 .orElse(Double.NaN);
+    }
+
+    @Override
+    @Cacheable("bonus")
+    public Double calculateBonus(Double rating) {
+        log.info("SalaryService::calculateBonus");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return rating * 10;
     }
 
 

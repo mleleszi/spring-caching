@@ -4,6 +4,7 @@ import com.example.springcaching.service.SalaryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +23,10 @@ public class SalaryController {
     @GetMapping("/average")
     public ResponseEntity<Double> getAverage() {
         return ResponseEntity.ok(salaryService.getAverageSalary());
+    }
+
+    @GetMapping("/bonus/{rating}")
+    public ResponseEntity<Double> calculateBonus(@PathVariable Double rating) {
+        return ResponseEntity.ok(salaryService.calculateBonus(rating));
     }
 }

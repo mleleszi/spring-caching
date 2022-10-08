@@ -9,4 +9,5 @@ public interface SalaryService {
                         Integer decreaseAmount);
     Long getSumOfSalaries();
     Double getAverageSalary();
+    Double calculateBonus(Double rating);
 }
