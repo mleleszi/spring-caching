@@ -1,10 +1,14 @@
 package com.example.springcaching.service;
 
 import com.example.springcaching.dto.EmployeeDto;
+import com.example.springcaching.dto.UpdateEmployeeNameDto;
+import com.example.springcaching.entity.Employee;
+import com.example.springcaching.exception.NoSuchEntityException;
 import com.example.springcaching.repository.EmployeeRepository;
 import jdk.jfr.Percentage;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -45,5 +49,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Integer> getAllIds() {
         return employeeRepository.findAllIds();
+    }
+
+    @Override
+    @CachePut(value="employees", key="#id")
+    public EmployeeDto updateEmployeeName(Integer id, UpdateEmployeeNameDto updateEmployeeNameDto) {
+        Employee employee = employeeRepository
+                                .findById(id)
+                                .orElseThrow(() -> new NoSuchEntityException());
+
+        employee.setFirstName(updateEmployeeNameDto.getFirstName());
+        employee.setLastName(updateEmployeeNameDto.getLastName());
+
+        employeeRepository.save(employee);
+
+        return new EmployeeDto(employee);
     }
 }

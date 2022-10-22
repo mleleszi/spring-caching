@@ -1,8 +1,8 @@
 package com.example.springcaching.service;
 
 import com.example.springcaching.dto.EmployeeDto;
-import com.example.springcaching.entity.Employee;
-import jdk.jfr.Percentage;
+import com.example.springcaching.dto.UpdateEmployeeNameDto;
+
 
 import java.util.List;
 
@@ -11,4 +11,5 @@ public interface EmployeeService {
     EmployeeDto getEmployeeById(Integer id);
     boolean existsById(Integer id);
     List<Integer> getAllIds();
+    EmployeeDto updateEmployeeName(Integer id, UpdateEmployeeNameDto updateEmployeeNameDto);
 }
