@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SalaryService {
     SalaryDto getCurrentSalaryByEmployeeId(Integer id);
-    String modifySalary(Integer id,
+    SalaryDto modifySalary(Integer id,
                         Integer increaseAmount,
                         Integer decreaseAmount);
     Long getSumOfSalaries();

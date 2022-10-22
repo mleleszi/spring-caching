@@ -1,6 +1,7 @@
 package com.example.springcaching.controller;
 
 import com.example.springcaching.dto.EmployeeDto;
+import com.example.springcaching.dto.SalaryDto;
 import com.example.springcaching.entity.Employee;
 import com.example.springcaching.repository.EmployeeRepository;
 import com.example.springcaching.repository.SalaryRepository;
@@ -40,7 +41,7 @@ public class EmployeeController {
     }
 
     @PatchMapping("/{id}/modifysalary")
-    public ResponseEntity<String> modifySalary(
+    public ResponseEntity<SalaryDto> modifySalary(
             @PathVariable Integer id,
             @RequestParam(required = false) Integer increaseAmount,
             @RequestParam(required = false) Integer decreaseAmount

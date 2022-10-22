@@ -8,6 +8,7 @@ import com.example.springcaching.repository.SalaryRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -25,13 +26,15 @@ public class SalaryServiceImpl implements SalaryService {
     EmployeeService employeeService;
 
     @Override
+    @Cacheable(value="currentsalaries", key = "#id")
     public SalaryDto getCurrentSalaryByEmployeeId(Integer id) {
         return new SalaryDto(salaryRepository.findCurrentSalaryByEmployeeId(id));
     }
 
     @Override
     @CacheEvict(value = "employees", key = "#id")
-    public String modifySalary(Integer id,
+    @CachePut(value="currentsalaries", key = "#id")
+    public SalaryDto modifySalary(Integer id,
                                Integer increaseAmount,
                                Integer decreaseAmount) {
         if (!employeeRepository.existsById(id))
@@ -44,11 +47,11 @@ public class SalaryServiceImpl implements SalaryService {
         } else if (increaseAmount != null) {
             salary.setSalary(salary.getSalary() + increaseAmount);
             salaryRepository.save(salary);
-            return "Salary increased by " + increaseAmount;
+            return new SalaryDto(salary);
         } else if (decreaseAmount != null) {
             salary.setSalary(salary.getSalary() - decreaseAmount);
             salaryRepository.save(salary);
-            return "Salary decreased by " + decreaseAmount;
+            return new SalaryDto(salary);
         }
 
         return null;
@@ -96,6 +99,4 @@ public class SalaryServiceImpl implements SalaryService {
                 .map(SalaryDto::new)
                 .collect(Collectors.toList());
     }
-
-
 }
