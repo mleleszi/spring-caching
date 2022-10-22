@@ -49,7 +49,7 @@ public class EmployeeController {
     }
 
     @PatchMapping("/{id}/modifyname")
-    public ResponseEntity<EmployeeDto> updateEmployeeName(@PathVariable Integer id, UpdateEmployeeNameDto updateEmployeeNameDto) {
+    public ResponseEntity<EmployeeDto> updateEmployeeName(@PathVariable Integer id, @RequestBody UpdateEmployeeNameDto updateEmployeeNameDto) {
         return ResponseEntity.ok(employeeService.updateEmployeeName(id, updateEmployeeNameDto));
     }
 }
