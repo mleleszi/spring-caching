@@ -1,11 +1,14 @@
 package com.example.springcaching.entity;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "departments")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Department {
     @Id
     @Column(name = "dept_no", nullable = false, length = 4)

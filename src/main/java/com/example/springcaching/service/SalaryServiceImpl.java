@@ -1,18 +1,24 @@
 package com.example.springcaching.service;
 
 import com.example.springcaching.dto.SalaryDto;
-import com.example.springcaching.entity.Employee;
 import com.example.springcaching.entity.Salary;
 import com.example.springcaching.exception.NoSuchEntityException;
 import com.example.springcaching.repository.EmployeeRepository;
 import com.example.springcaching.repository.SalaryRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class SalaryServiceImpl implements SalaryService {
 
     SalaryRepository salaryRepository;
@@ -20,12 +26,15 @@ public class SalaryServiceImpl implements SalaryService {
     EmployeeService employeeService;
 
     @Override
+    @Cacheable(value="currentsalaries", key = "#id")
     public SalaryDto getCurrentSalaryByEmployeeId(Integer id) {
         return new SalaryDto(salaryRepository.findCurrentSalaryByEmployeeId(id));
     }
 
     @Override
-    public String modifySalary(Integer id,
+    @CacheEvict(value = "employees", key = "#id")
+    @CachePut(value="currentsalaries", key = "#id")
+    public SalaryDto modifySalary(Integer id,
                                Integer increaseAmount,
                                Integer decreaseAmount) {
         if (!employeeRepository.existsById(id))
@@ -38,17 +47,18 @@ public class SalaryServiceImpl implements SalaryService {
         } else if (increaseAmount != null) {
             salary.setSalary(salary.getSalary() + increaseAmount);
             salaryRepository.save(salary);
-            return "Salary increased by " + increaseAmount;
+            return new SalaryDto(salary);
         } else if (decreaseAmount != null) {
             salary.setSalary(salary.getSalary() - decreaseAmount);
             salaryRepository.save(salary);
-            return "Salary decreased by " + decreaseAmount;
+            return new SalaryDto(salary);
         }
 
         return null;
     }
 
     @Override
+    @Cacheable
     public Long getSumOfSalaries() {
          return employeeService
                     .getAllIds()
@@ -58,6 +68,7 @@ public class SalaryServiceImpl implements SalaryService {
     }
 
     @Override
+    @Cacheable("avgSalary")
     public Double getAverageSalary() {
         return employeeService
                 .getAllIds()
@@ -68,5 +79,24 @@ public class SalaryServiceImpl implements SalaryService {
                 .orElse(Double.NaN);
     }
 
+    @Override
+    @Cacheable("bonus")
+    public Double calculateBonus(Double rating) {
+        log.info("SalaryService::calculateBonus");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return rating * 10;
+    }
 
+    @Override
+    public List<SalaryDto> getAllSalaries(int page, int size) {
+        return salaryRepository
+                .findAllBy(PageRequest.of(page, size))
+                .stream()
+                .map(SalaryDto::new)
+                .collect(Collectors.toList());
+    }
 }
