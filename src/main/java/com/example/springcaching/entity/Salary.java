@@ -8,13 +8,10 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "salaries")
-@javax.persistence.Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Salary {
     @EmbeddedId
     private SalaryId id;
-
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @MapsId("empNo")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "emp_no")

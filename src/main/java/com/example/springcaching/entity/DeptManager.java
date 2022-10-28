@@ -8,19 +8,15 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "dept_manager")
-@javax.persistence.Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class DeptManager {
     @EmbeddedId
     private DeptManagerId id;
-
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @MapsId("empNo")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "emp_no")
     private Employee employee;
 
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @MapsId("deptNo")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dept_no")

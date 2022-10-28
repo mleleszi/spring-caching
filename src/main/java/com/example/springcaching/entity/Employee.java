@@ -10,7 +10,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "employees")
-@javax.persistence.Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Employee {
 
@@ -34,19 +33,15 @@ public class Employee {
     @Column(name = "hire_date", nullable = false)
     private LocalDate hireDate;
 
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "employee")
     private Set<DeptEmp> deptEmps = new LinkedHashSet<>();
 
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "employee")
     private Set<DeptManager> deptManagers = new LinkedHashSet<>();
 
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "employee")
     private Set<Title> titles = new LinkedHashSet<>();
 
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "employee")
     private Set<Salary> salaries = new LinkedHashSet<>();
 

@@ -5,17 +5,12 @@ spring:
     password: qwertzui
   jpa:
     properties:
-      javax:
-        persistence:
-          sharedCache:
-            #required - enable selective caching mode - only entities with @Cacheable annotation will use L2 cache.
-            mode: ENABLE_SELECTIVE
       hibernate:
         cache:
           use_query_cache: true
           use_second_level_cache: true
           region:
-            factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+            factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
     show-sql: true
     redis:
       host: localhost
