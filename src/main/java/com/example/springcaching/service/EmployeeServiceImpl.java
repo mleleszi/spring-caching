@@ -5,7 +5,6 @@ import com.example.springcaching.dto.UpdateEmployeeNameDto;
 import com.example.springcaching.entity.Employee;
 import com.example.springcaching.exception.NoSuchEntityException;
 import com.example.springcaching.repository.EmployeeRepository;
-import jdk.jfr.Percentage;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CachePut;

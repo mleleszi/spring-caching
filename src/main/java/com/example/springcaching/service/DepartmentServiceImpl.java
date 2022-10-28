@@ -2,6 +2,7 @@ package com.example.springcaching.service;
 
 import com.example.springcaching.dto.DepartmentDto;
 import com.example.springcaching.entity.Department;
+import com.example.springcaching.exception.NoSuchEntityException;
 import com.example.springcaching.repository.DepartmentRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public DepartmentDto getDepartmentById(String id) {
         log.info("DepartmentService::getDepartmentById");
-        return new DepartmentDto(departmentRepository.findById(id).orElse(null));
+
+        Department department = departmentRepository
+                                    .findById(id)
+                                    .orElseThrow(() -> new NoSuchEntityException(id));
+
+        return new DepartmentDto(department);
     }
+
+
 }

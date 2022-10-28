@@ -5,6 +5,10 @@ public class NoSuchEntityException extends RuntimeException {
         super(String.format("No entity with id: %s", id));
     }
 
+    public NoSuchEntityException(String id) {
+        super(String.format("No entity with id: %s", id));
+    }
+
     public NoSuchEntityException() {
         super("No such entity");
     }
