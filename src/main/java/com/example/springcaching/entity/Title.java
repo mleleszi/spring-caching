@@ -12,6 +12,8 @@ import java.time.LocalDate;
 public class Title {
     @EmbeddedId
     private TitleId id;
+
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @MapsId("empNo")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "emp_no")

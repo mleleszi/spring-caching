@@ -17,9 +17,11 @@ public class Department {
     @Column(name = "dept_name", nullable = false, length = 40)
     private String deptName;
 
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "department")
     private Set<DeptEmp> deptEmps = new LinkedHashSet<>();
 
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "department")
     private Set<DeptManager> deptManagers = new LinkedHashSet<>();
 

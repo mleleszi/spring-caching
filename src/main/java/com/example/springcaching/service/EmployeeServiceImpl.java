@@ -35,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    @Cacheable(value="employees", key="#id")
+    //@Cacheable(value="employees", key="#id")
     public EmployeeDto getEmployeeById(Integer id) {    
         log.info("EmployeeService::getEmployeeById");
         return new EmployeeDto(employeeRepository.findById(id).orElse(null));
