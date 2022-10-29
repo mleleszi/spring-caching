@@ -26,6 +26,6 @@ public class CachingConfig {
                 .withCacheConfiguration("employees",
                         RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(5)))
                 .withCacheConfiguration("salaries",
-                RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(10)));
+                        RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(10)));
     }
 }

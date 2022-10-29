@@ -7,6 +7,7 @@ import com.example.springcaching.service.EmployeeService;
 import com.example.springcaching.service.SalaryService;
 import lombok.AllArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/employees")
 @AllArgsConstructor
+@Slf4j
 public class EmployeeController {
 
     EmployeeService employeeService;
@@ -31,6 +33,7 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Integer id) {
+        log.info("EmployeeController::getEmployeeById");
         return ResponseEntity.ok(employeeService.getEmployeeById(id));
     }
 
