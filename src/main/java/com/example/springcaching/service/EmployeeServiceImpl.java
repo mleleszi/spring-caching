@@ -8,8 +8,10 @@ import com.example.springcaching.repository.EmployeeRepository;
 import jdk.jfr.Percentage;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -43,10 +45,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                                 .findById(id)
                                 .orElseThrow(() -> new NoSuchEntityException(id));
 
-        employeeRepository.findById(id).orElseThrow(() -> new NoSuchEntityException(id));
-        employeeRepository.findById(id).orElseThrow(() -> new NoSuchEntityException(id));
-        employeeRepository.findById(id).orElseThrow(() -> new NoSuchEntityException(id));
-
         return new EmployeeDto(employee);
     }
 
@@ -74,5 +72,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.save(employee);
 
         return new EmployeeDto(employee);
+    }
+
+    @Override
+    @CacheEvict(value = "employees", key="#id")
+    public void deleteEmployeeById(Integer id) {
+        log.info("EmployeeService::deleteEmployeeById");
+        try {
+            employeeRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new NoSuchEntityException(id);
+        }
     }
 }

@@ -12,4 +12,5 @@ public interface EmployeeService {
     boolean existsById(Integer id);
     List<Integer> getAllIds();
     EmployeeDto updateEmployeeName(Integer id, UpdateEmployeeNameDto updateEmployeeNameDto);
+    void deleteEmployeeById(Integer id);
 }
