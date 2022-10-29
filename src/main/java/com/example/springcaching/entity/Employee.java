@@ -39,15 +39,17 @@ public class Employee {
 
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "employee")
+    private Set<Salary> salaries = new LinkedHashSet<>();
+
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @OneToMany(mappedBy = "employee")
     private Set<DeptManager> deptManagers = new LinkedHashSet<>();
 
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @OneToMany(mappedBy = "employee")
     private Set<Title> titles = new LinkedHashSet<>();
 
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @OneToMany(mappedBy = "employee")
-    private Set<Salary> salaries = new LinkedHashSet<>();
+
 
     public Set<Salary> getSalaries() {
         return salaries;
