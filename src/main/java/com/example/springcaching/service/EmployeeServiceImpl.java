@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class EmployeeServiceImpl implements EmployeeService {
 
-    EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
 
     @Override
     @Cacheable("employees")

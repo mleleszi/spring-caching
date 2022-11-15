@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class DepartmentController {
 
-    DepartmentService departmentService;
+    private DepartmentService departmentService;
 
     @GetMapping
     public ResponseEntity<List<DepartmentDto>> getAllDepartments() {

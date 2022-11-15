@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/api/salary")
 public class SalaryController {
 
-    SalaryService salaryService;
+    private SalaryService salaryService;
 
     @GetMapping("/sum")
     public ResponseEntity<Long> getSum() {

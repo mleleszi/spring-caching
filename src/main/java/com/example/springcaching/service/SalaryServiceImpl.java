@@ -21,9 +21,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class SalaryServiceImpl implements SalaryService {
 
-    SalaryRepository salaryRepository;
-    EmployeeRepository employeeRepository;
-    EmployeeService employeeService;
+    private SalaryRepository salaryRepository;
+    private EmployeeRepository employeeRepository;
+    private EmployeeService employeeService;
 
     @Override
     @Cacheable(value="currentsalaries", key = "#id")

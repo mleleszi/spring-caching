@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DepartmentServiceImpl implements DepartmentService {
 
-    DepartmentRepository departmentRepository;
+    private DepartmentRepository departmentRepository;
 
     @Override
     public List<DepartmentDto> getAllDepartments() {

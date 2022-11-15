@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class EmployeeController {
 
-    EmployeeService employeeService;
+    private EmployeeService employeeService;
     SalaryService salaryService;
 
     @GetMapping
